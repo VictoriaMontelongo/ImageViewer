@@ -1,14 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package imageviewer.app.swing;
 
-/**
- *
- * @author victo
- */
-public class Main {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Main extends JFrame{
     
+    public static void main(String[] args){
+        new Main().execute();
+    }
+    public Main(){
+        this.setTitle("Image Viewer");
+        this.setSize(800,600);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.getContentPane().add(imagePanel());
+    }
+
+    private void execute() {
+        this.setVisible(true);
+    }
+
+    private JPanel imagePanel() {
+        ImagePanel imagePanel = new ImagePanel();
+        return imagePanel;
+    }
 }
