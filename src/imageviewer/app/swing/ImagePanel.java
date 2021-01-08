@@ -6,22 +6,43 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import model.Image;
+import view.ImageDisplay;
 
-public class ImagePanel extends JPanel{
+public class ImagePanel extends JPanel implements ImageDisplay{
 
-    private BufferedImage image;
+    private BufferedImage data;
+    private Image image;
+    
     
     public ImagePanel(){
-        try {
-            this.image = ImageIO.read(new File("fotos/canteras.jpg"));
-        } catch (IOException ex) {
-        }
+        
     }
     
    public void paint(Graphics g){
-       Box box = new Box(image.getWidth(), image.getHeight(), this.getWidth(), this.getHeight());
-       g.drawImage(image, box.x, box.y, box.width, box.height, null);
+       Box box = new Box(data.getWidth(), data.getHeight(), this.getWidth(), this.getHeight());
+       g.drawImage(data, box.x, box.y, box.width, box.height, null);
    }
+
+    @Override
+    public void display(Image image) {
+        this.image = image;
+        this.data = read(new File(image.getName()));
+        repaint();
+    }
+
+    @Override
+    public Image currentImage() {
+        return this.image;
+    }
+
+    private static BufferedImage read(File file) {
+        try {
+            return ImageIO.read(file);
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 
     private static class Box {
         final int x;
